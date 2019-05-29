@@ -137,8 +137,6 @@ class HEPhotoBrowserViewController: HEBaseViewController {
         view.addSubview(bootomBar)
         view.addSubview(checkBtn)
         pageCollectionView.setContentOffset(CGPoint.init(x: CGFloat(imageIndex.row) * kScreenWidth, y: 0), animated: false)
-        
-        
 
     }
     
@@ -261,7 +259,7 @@ extension HEPhotoBrowserViewController : HETargetViewControllerDelegate{
             return UIImageView()
         }
         let model = self.models[imageIndex.row]
-        let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: kScreenWidth, height: kScreenHeight))
+        let imageView = UIImageView.init(frame: view.bounds)
         let options = PHImageRequestOptions()
         PHCachingImageManager.default().requestImage(for: model.asset,
                                                      targetSize: CGSize.init(width: kScreenWidth, height: kScreenHeight),
@@ -270,9 +268,9 @@ extension HEPhotoBrowserViewController : HETargetViewControllerDelegate{
         { (image, nil) in
             imageView.image = image
         }
-        
+        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         imageView.contentMode = .scaleAspectFit
-        imageView.maskToBounds = true
+//        imageView.maskToBounds = true
         return imageView
     }
 }

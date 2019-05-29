@@ -80,6 +80,10 @@ public class HEPhotoPickerViewController: HEBaseViewController {
     private let photosOptions = PHFetchOptions()
     /// 过场动画
     private var animator = HEPhotoBrowserAnimator()
+    
+    private var pushAnimator = HETransitionsAnimator()
+    private var popAnimator = HETransitionsAnimator()
+    
      ///  相册原有数据
     private var smartAlbums :PHFetchResult<PHAssetCollection>!
     /// 整理过后的相册
@@ -576,6 +580,14 @@ extension HEPhotoPickerViewController : UICollectionViewDelegate,UICollectionVie
                 
             }
             self.animator.popDelegate = photoDetail
+            if let cell = collectionView.cellForItem(at: indexPath) as?HEPhotoPickerCell {
+                self.pushAnimator.sourceImageView = cell.imageView
+                self.pushAnimator.destinationImageView = photoDetail.getTargetImageView()
+                self.popAnimator.sourceImageView = photoDetail.getTargetImageView()
+                self.popAnimator.destinationImageView = cell.imageView
+            }
+            
+            
             self.navigationController?.pushViewController(photoDetail, animated: true)
         }
     }
@@ -583,8 +595,16 @@ extension HEPhotoPickerViewController : UICollectionViewDelegate,UICollectionVie
 
 extension HEPhotoPickerViewController : UINavigationControllerDelegate{
     public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        animator.operation = operation
-        return animator
+//        animator.operation = operation
+        switch operation {
+        case .push:
+            return pushAnimator
+        case .pop:
+            return popAnimator
+        case .none:
+            return nil
+        }
+//        return animator
     }
 }
 

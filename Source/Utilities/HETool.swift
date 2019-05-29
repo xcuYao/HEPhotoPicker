@@ -79,7 +79,7 @@ public class HETool: NSObject {
                            ok: (() -> Void)? = nil,
                            cancel: (() -> Void)? = nil,
                            title: String = "HEPhotoPicker",
-                           message: String = "FMPhotoPicker 需要访问您的相册") {
+                           message: String = "HEPhotoPicker 需要访问您的相册") {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         alertController.addAction(UIAlertAction(title: "好", style: .default, handler: { _ in ok?() }))
