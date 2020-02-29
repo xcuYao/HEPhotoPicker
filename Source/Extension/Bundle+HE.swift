@@ -8,7 +8,7 @@
 import Foundation
 
 extension Bundle{
-    public static var heBundle :Bundle?{
+    static var heBundle :Bundle?{
         get{
             guard let url = Bundle(for: HETool.self).url(forResource: "HEPhotoPicker", withExtension: "bundle")else {
                 return nil

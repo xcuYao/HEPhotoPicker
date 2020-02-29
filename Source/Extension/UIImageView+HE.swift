@@ -8,7 +8,7 @@
 import Foundation
 
 extension UIImage {
-    public static func heinit(name:String) -> UIImage?{
+    static func heinit(name:String) -> UIImage?{
         return UIImage(named: name, in: Bundle.heBundle, compatibleWith: nil)
     }
 
